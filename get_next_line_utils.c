@@ -6,7 +6,7 @@
 /*   By:  amangold < amangold@student.42heilbron    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:50:42 by  amangold         #+#    #+#             */
-/*   Updated: 2023/03/01 15:08:06 by  amangold        ###   ########.fr       */
+/*   Updated: 2023/03/03 19:10:22 by  amangold        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ char	*ft_strchr(const char *hay, int needle)
 	return (NULL);
 }
 
-int	ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-	int	lenght;
+	int	length;
 
-	lenght = 0;
+	length = 0;
 	if (!s)
-		return (NULL);
+		return (0);
 	while (s[length] != '\0')
 		length++;
-	return (lenght);
+	return (length);
 }
 
 size_t	strlcpy(char *dest, const char *src, size_t dstsize)

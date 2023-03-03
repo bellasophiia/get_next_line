@@ -6,7 +6,7 @@
 /*   By:  amangold < amangold@student.42heilbron    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:42:02 by  amangold         #+#    #+#             */
-/*   Updated: 2023/02/20 14:47:37 by  amangold        ###   ########.fr       */
+/*   Updated: 2023/03/03 17:11:10 by  amangold        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(void)
 	int		fd1;
 	int		fd2;
 	int		fd3;
-	
+
 	fd1 = open("tests/test.txt", 0_RDONLY);
 	fd2 = open("tests/test2.txt", 0_RDONLY);
 	fd3 = open("tests/test3.txt", 0_RDONLY);
@@ -30,9 +30,6 @@ int	main(void)
 		printf("line [%02d]: %s", i, line);
 		free (line);
 		line = get_next_line(fd2);
-		printf("line [%02d]: %s", i, line);
-		free (line);
-		line = get_next_line(fd3);
 		printf("line [%02d]: %s", i, line);
 		free (line);
 		i++;
