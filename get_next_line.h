@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:  amangold < amangold@student.42heilbron    +#+  +:+       +#+        */
+/*   By: amangold <amangold@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 16:56:59 by  amangold         #+#    #+#             */
-/*   Updated: 2023/03/03 19:09:32 by  amangold        ###   ########.fr       */
+/*   Updated: 2023/03/07 12:06:25 by amangold         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	*ft_strchr(const char *hay, int needle);
 size_t	ft_strlcpy(char *dest, const char *src, size_t destsize);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s1);
+char	*ft_strjoin(char const *s1, char const *s2);
 void	*ft_calloc(size_t count, size_t size);
 char	get_next_line(int fd);
 

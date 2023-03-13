@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:  amangold < amangold@student.42heilbron    +#+  +:+       +#+        */
+/*   By: amangold <amangold@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:26:07 by  amangold         #+#    #+#             */
-/*   Updated: 2023/03/03 19:13:46 by  amangold        ###   ########.fr       */
+/*   Updated: 2023/03/13 10:08:20 by amangold         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // für den String bis dahin und dann schreib ich das wieder in den Buffer rein
 
 
-char	*read_line(char *line)
+char	*read_line(char *line, int fd)
 {
 	int		i;
 	int		byte;
@@ -36,14 +36,14 @@ char	*read_line(char *line)
 	while (!ft_strchr(line, '\n' && byte != 0))
 	{
 		// reads the nextline from the fd into the nextline
-		byte = read(fd, nextline, BUFFER_SIZE)
+		byte = read(fd, nextline, BUFFER_SIZE);
 		if (byte < 0)
 		{
 			free(nextline);
 			return (NULL);
 		}
 		// 0 to end for leaks
-		nextline[byte] = '\0'
+		nextline[byte] = '\0';
 		line = ft_strjoin(line, nextline);
 	}
 	free(nextline);
@@ -60,7 +60,7 @@ char	*get_line(char *line)
 		return (NULL);
 	while (nextline[i] || nextline[i] != '\n')
 	i++;
-	nextline = malloc(BUFFER_SIZE + 1 ) * sizeof(char);
+	nextline = malloc(BUFFER_SIZE + 1 ), sizeof(char);
 	// (ft_strlen(line)i + 2),
 	i = 0;
 	// line gets written into nextline until i = '\n'
@@ -88,7 +88,7 @@ char *next_line(char *line)
 	if (!line)
 		free(line);
 		return(NULL);
-	line = malloc(BUFFER_SIZE + 1 ) * sizeof(char);
+	line = malloc(BUFFER_SIZE + 1 ), sizeof(char);
 	i++;
 	j = 0;
 	while (line[i])
@@ -99,16 +99,16 @@ char *next_line(char *line)
 
 char	get_next_line(int fd)
 {
-	static char	nextline;
-	char		line;
+	static char	*nextline;
+	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read (fd, 0, 0) < 0)
 		return (NULL);
-	nextline = read_line(line);
+	nextline = read_line(line, 1);
 	if (!line)
 		return (NULL);
 	line = get_line(line);
 	nextline = next_line(line);
-	return (nextline);
+	return (*nextline);
 }
 

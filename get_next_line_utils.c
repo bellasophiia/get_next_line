@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:  amangold < amangold@student.42heilbron    +#+  +:+       +#+        */
+/*   By: amangold <amangold@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 14:50:42 by  amangold         #+#    #+#             */
-/*   Updated: 2023/03/03 19:10:22 by  amangold        ###   ########.fr       */
+/*   Updated: 2023/03/07 12:04:44 by amangold         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,31 @@ size_t	strlcpy(char *dest, const char *src, size_t dstsize)
 	}
 	dest[i] = 0;
 	return (ft_strlen(src));
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	size_t	i;
+	size_t	j;
+	char	*join;
+
+	join = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	if (join == NULL)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1[i] != '\0')
+	{
+		join[i] = s1[i];
+		i++;
+	}
+	while (s2[j] != '\0')
+	{
+		join[i + j] = s2[j];
+		j++;
+	}
+	join[i + j] = '\0';
+	return (join);
 }
 
 char	*ft_strdup(const char *s1)

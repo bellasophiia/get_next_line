@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:  amangold < amangold@student.42heilbron    +#+  +:+       +#+        */
+/*   By: amangold <amangold@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:42:02 by  amangold         #+#    #+#             */
-/*   Updated: 2023/03/03 17:11:10 by  amangold        ###   ########.fr       */
+/*   Updated: 2023/03/13 08:57:03 by amangold         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+/*#include "get_next_line.h"
 
-int	main(void)
-{
-	char	*line;
-	int		i;
-	int		fd1;
-	int		fd2;
-	int		fd3;
-
-	fd1 = open("tests/test.txt", 0_RDONLY);
+//int	main(void)
+//{
+//	char	*line;
+//	int		i;
+//	int		fd1;
+//	int		fd2;
+//	int		fd3;
+//
+//	fd1 = open("tests/test.txt", 0_RDONLY);
 	fd2 = open("tests/test2.txt", 0_RDONLY);
 	fd3 = open("tests/test3.txt", 0_RDONLY);
 	i = 1;
@@ -39,3 +39,4 @@ int	main(void)
 	close(fd3);
 	return (0);
 }
+/*
