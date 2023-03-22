@@ -3,53 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amangold <amangold@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By:  amangold < amangold@student.42heilbron    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:26:07 by  amangold         #+#    #+#             */
-/*   Updated: 2023/03/13 10:08:20 by amangold         ###   ########.fr       */
+/*   Updated: 2023/03/22 16:34:12 by  amangold        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-// ich gehe durch die Line und suche nach dem '\n' char
-// wenn ich den gefunden habe, dann allociere ich mit malloc genug speicherplatz
-// für den String bis dahin und dann schreib ich das wieder in den Buffer rein
-
-
-char	*read_line(char *line, int fd)
+// reads the content of fd
+char	*read_line( int fd, char *line)
 {
-	int		i;
 	int		byte;
 	char	*nextline;
 
-// check if the line is existing
-	if (!line || line[0])
+	if (!line)
+		line = ft_calloc(1, 1);
+	nextline = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (!nextline)
 		return (NULL);
-		// goes through the line and looks for '\n'
-	while (line[i] && line[i] != '\n')
-		i++;
-		// allocates the BUFFER for the len of nextline with malloc
-	nextline = ft_calloc((ft_strlen(line) - i + 1), sizeof(char));
 	byte = 1;
-	// looks with strchr if there is the '\n' and that byte is not 0
-	while (!ft_strchr(line, '\n' && byte != 0))
+	while (!ft_strchr(line, '\n') && byte != 0)
 	{
-		// reads the nextline from the fd into the nextline
 		byte = read(fd, nextline, BUFFER_SIZE);
 		if (byte < 0)
-		{
-			free(nextline);
-			return (NULL);
-		}
-		// 0 to end for leaks
+			return (free(nextline), free(line), NULL);
 		nextline[byte] = '\0';
 		line = ft_strjoin(line, nextline);
+		if (ft_strchr(line, '\n'))
+			break ;
 	}
-	free(nextline);
-	return (line);
+	return (free (nextline), line);
 }
 
+// takes the line before '\n'
 char	*get_line(char *line)
 {
 	char	*nextline;
@@ -58,57 +46,60 @@ char	*get_line(char *line)
 	i = 0;
 	if (!line || line[i] == '\0')
 		return (NULL);
-	while (nextline[i] || nextline[i] != '\n')
-	i++;
-	nextline = malloc(BUFFER_SIZE + 1 ), sizeof(char);
-	// (ft_strlen(line)i + 2),
+	while (line[i] && line[i] != '\n')
+		i++;
+		nextline = ft_calloc(i + 2, sizeof(char));
+	if (!nextline)
+		return (free (line), NULL);
 	i = 0;
-	// line gets written into nextline until i = '\n'
 	while (line [i] && line[i] != '\n')
 	{
 		nextline[i] = line[i];
 		i++;
 	}
-	// if there is '\n' then the '\n' gets appended to the str nextline 
 	if (line[i] && line[i] == '\n')
-	nextline[i++] = '\n';
+		nextline[i++] = '\n';
+		line = nextline;
+		// nextline[i] = '\0';
 	return (nextline);
 }
 
-char *next_line(char *line)
+// Frees the result and makes line = the file content
+char	*next_line(char *line)
 {
 	int		i;
 	int		j;
 	char	*nextline;
 
+	i = 0;
 	if (!line || line[i] == '\0')
 		return (NULL);
-	while (line[i] || line != '\n')
+	while (line[i] && line[i] != '\n')
 		i++;
-	if (!line)
-		free(line);
-		return(NULL);
-	line = malloc(BUFFER_SIZE + 1 ), sizeof(char);
+	if (!line[i])
+		return (free(line), NULL);
+	nextline = ft_calloc ((ft_strlen(line) - i + 1), sizeof(char));
+	if (!nextline)
+		return (free (line), NULL);
 	i++;
 	j = 0;
-	while (line[i])
-		line[i++] = nextline[j++];
-		free (nextline);
-		return (line);
+	while (line[i] != '\0')
+		nextline[j++] = line[i++];
+	nextline[j] = '\0';
+	free (line);
+	return (nextline);
 }
 
-char	get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	static char	*nextline;
-	char		*line;
+	char		*nextline;
+	static char	*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read (fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	nextline = read_line(line, 1);
+	line = read_line(fd, line);
 	if (!line)
 		return (NULL);
-	line = get_line(line);
-	nextline = next_line(line);
-	return (*nextline);
-}
-
+	nextline = get_line(line);
+	line = next_line(line);
+	return (nextline);

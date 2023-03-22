@@ -3,40 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amangold <amangold@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By:  amangold < amangold@student.42heilbron    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/20 14:42:02 by  amangold         #+#    #+#             */
-/*   Updated: 2023/03/13 08:57:03 by amangold         ###   ########.fr       */
+/*   Created: 2023/03/16 19:26:37 by  amangold         #+#    #+#             */
+/*   Updated: 2023/03/22 16:01:47 by  amangold        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*#include "get_next_line.h"
+#include "get_next_line.h"
+#include <fcntl.h>
+#include <stdio.h>
 
-//int	main(void)
-//{
-//	char	*line;
-//	int		i;
-//	int		fd1;
-//	int		fd2;
-//	int		fd3;
-//
-//	fd1 = open("tests/test.txt", 0_RDONLY);
-	fd2 = open("tests/test2.txt", 0_RDONLY);
-	fd3 = open("tests/test3.txt", 0_RDONLY);
-	i = 1;
-	while (i < 7)
-	{
-		line = get_next_line(fd1);
-		printf("line [%02d]: %s", i, line);
-		free (line);
-		line = get_next_line(fd2);
-		printf("line [%02d]: %s", i, line);
-		free (line);
-		i++;
-	}
-	close(fd1);
-	close(fd2);
-	close(fd3);
+int	main(void)
+{
+	int		fd;
+	char	*solution;
+	fd = open("test.txt", O_RDONLY);
+
+	solution = get_next_line(fd);
+	printf("%s", solution);
+	free (solution);
+	solution = get_next_line(fd);
+	printf("%s", solution);
+	free (solution);
+	solution = get_next_line(fd);
+	printf("%s", solution);
+	free (solution);
+	solution = get_next_line(fd);
+	printf("%s", solution);
+	free (solution);
+	solution = get_next_line(fd);
+	printf("%s", solution);
+	free (solution);
+	solution = get_next_line(fd);
+	printf("%s", solution);
+	free (solution);
+	close (fd);
 	return (0);
 }
-/*
