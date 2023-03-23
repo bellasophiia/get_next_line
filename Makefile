@@ -1,19 +1,20 @@
 CC=cc 
-CFLAGS=-Wall -Wextra -Werror -D -g BUFFER_SIZE=n -fsanitize=address <files>.c
-NAME=get_next_line
+CFLAGS=-Wall -Wextra -Werror -g -D BUFFER_SIZE=20
+NAME=libget_next_line.a
 DEPS=get_next_line.h
 MANDATORY= get_next_line_utils.c get_next_line.c main.c
+OBJS=$(MANDATORY:.c:=o)
 
 %.o: %.c $(DEPS)
-	$(CC) $(CFLAGS) -c $<  -o $@ 
+	$(CC) $(CFLAGS) -c $< -o $@ 
 
-$(NAME): $(OBJ)
-	cc $(MANDATORY)
+$(NAME): $(OBJS)
+	ar -crs $@ $^ 
 
 all: $(NAME)
 
-test: $(OBJ)
-	$(CC) -o $@ $^ && ./test
+test: $(OBJS)
+	$(CC) $(CFLAGS) $^ && ./a.out
 
 clean:
 	rm -f *.o
