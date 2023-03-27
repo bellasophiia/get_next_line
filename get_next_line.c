@@ -6,40 +6,38 @@
 /*   By:  amangold < amangold@student.42heilbron    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:26:07 by  amangold         #+#    #+#             */
-/*   Updated: 2023/03/23 17:16:54 by  amangold        ###   ########.fr       */
+/*   Updated: 2023/03/24 14:38:20 by  amangold        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-// reads the content of fd
 static char	*read_line( int fd, char *line)
 {
 	int		byte;
-	char	*nextline;
+	char	*buffer;
 
 	if (line == NULL)
 		line = ft_calloc(1, 1);
-	nextline = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (nextline == NULL)
+	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (buffer == NULL)
 		return (free(line), NULL);
 	byte = 1;
 	while (!ft_strchr(line, '\n') && byte != 0)
 	{
-		byte = read(fd, nextline, BUFFER_SIZE);
+		byte = read(fd, buffer, BUFFER_SIZE);
 		if (byte < 0)
-			return (free(nextline), free(line), NULL);
-		nextline[byte] = '\0';
-		line = ft_strjoin(line, nextline);
+			return (free(buffer), free(line), NULL);
+		buffer[byte] = '\0';
+		line = ft_strjoin(line, buffer);
 		if (line == NULL)
-			return (free(nextline), NULL);
+			return (free(buffer), NULL);
 		if (ft_strchr(line, '\n'))
 			break ;
 	}
-	return (free(nextline), line);
+	return (free(buffer), line);
 }
 
-// takes the line before '\n'
 static char	*get_buffer(char *line)
 {
 	char	*nextline;
@@ -64,7 +62,6 @@ static char	*get_buffer(char *line)
 	return (nextline);
 }
 
-// Frees the result and makes line = the file content
 static char	*next_line(char *line)
 {
 	int		i;
@@ -76,7 +73,7 @@ static char	*next_line(char *line)
 		return (free(line), NULL);
 	while (line[i] && line[i] != '\n')
 		i++;
-	if (line[i] == NULL)
+	if (!line[i])
 		return (free(line), NULL);
 	nextline = ft_calloc((ft_strlen(line) - i + 1), sizeof(char));
 	if (nextline == NULL)

@@ -6,7 +6,7 @@
 /*   By:  amangold < amangold@student.42heilbron    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 19:26:37 by  amangold         #+#    #+#             */
-/*   Updated: 2023/03/22 16:01:47 by  amangold        ###   ########.fr       */
+/*   Updated: 2023/03/24 13:18:59 by  amangold        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	main(void)
 {
 	int		fd;
 	char	*solution;
-	fd = open("test.txt", O_RDONLY);
 
+	fd = open("test.txt", O_RDONLY);
 	solution = get_next_line(fd);
 	printf("%s", solution);
 	free (solution);
